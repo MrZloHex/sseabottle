@@ -46,9 +46,9 @@ int main() {
 
 			if (event.type == Event::MouseButtonPressed) {
             	if (event.key.code == Mouse::Left) {
-              		cout << "x " << x << endl;
+              		/*cout << "x " << x << endl;
               		cout << "y " << y << endl;
-              		cout << endl;
+              		cout << endl;*/
 
               		if (((x <= 9) && (x >= 0)) && ((y <= 9) && (y >= 0))) {
               			if (enemy_grid[x][y] == 0) {
