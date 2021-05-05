@@ -8,8 +8,9 @@ int main()
 	RenderWindow window(VideoMode(575, 300), "sseabottle");
 
 	int common_offset = 25, my_offset = 300, enemy_offset = 25;
-	int my_grid[10][10];
-	int enemy_grid[10][10];
+	int my_grid[0xA][0xA];
+	int enemy_grid[0xA][0xA];
+	int my_enemy_grid[0xA][0xA];
 
 	for (int i = 0; i < 10; i++)
 	{
