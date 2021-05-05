@@ -4,6 +4,65 @@
 using namespace std;
 using namespace sf;
 
+
+void generate_enemy_field(int field[0xA][0xA]) {
+	int amount = 10;
+	for (int x = 0; x < 10; x++) {
+		for (int y = 0; y < 10; y++) {
+			if ((rand()%3) == 2) {
+
+				if (x == 0) {
+					if (y == 0) {
+						field[x][y] = 2;
+						amount--;
+					}
+					else {
+						if (field[x][y-1] == 0) {
+							field[x][y] = 2;
+							amount--;
+						}
+					}
+				}
+				else {
+					if (y == 0) {
+						if ((field[x-1][y] == 0) && (field[x-1][y+1] == 0)) {
+							field[x][y] = 2;
+							amount--;
+						}
+					}
+					else if ((y < 9) && (y != 0)) {
+						if ((field[x][y-1] == 0) && (field[x-1][y-1] == 0) && (field[x-1][y] == 0) && (field[x-1][y+1] == 0)) {
+							field[x][y] = 2;
+							amount--;
+						}
+					}
+					else {
+						if ((field[x][y-1] == 0) && (field[x-1][y-1] == 0) && (field[x-1][y] == 0)) {
+							field[x][y] = 2;
+							amount--;
+						}
+					}
+				}
+
+			} 
+			if (amount == 0) {
+				return;
+			}
+		}
+	}
+}
+
+
+void make_field(int field[10][10]) {
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 10; j++) {
+			field[i][j] = 0;
+		}
+	}
+}
+
+
+
 int main() {
 	// making window	
 	RenderWindow window(VideoMode(575, 300), "sseabottle");
@@ -14,7 +73,13 @@ int main() {
 	int enemy_grid[0xA][0xA];			// 
 	int my_enemy_grid[0xA][0xA];		// k = 0
 
-	for (int i = 0; i < 10; i++) {
+	make_field(my_grid);
+	make_field(enemy_grid);
+	make_field(my_enemy_grid);
+
+	generate_enemy_field(enemy_grid);
+
+	/*for (int i = 0; i < 10; i++) {
 		for (int j = 0; j < 10; j++) {
 			if ((rand()%4) == 0) {
 				enemy_grid[i][j] = 2;
@@ -26,7 +91,7 @@ int main() {
 			my_enemy_grid[i][j] = 0;
 
 		}
-	}
+	}*/
 
  
 	// life cycle
@@ -84,16 +149,16 @@ int main() {
         				   . - nothing or trouble			0x00, 0xFF, 0x00
         				*/
         				// set colour
-        				if (my_enemy_grid[i][j] == 0) {
+        				if (enemy_grid[i][j] == 0) {
         					square.setFillColor(Color(0x00, 0xFF, 0xFF));
         				}
-        				else if (my_enemy_grid[i][j] == 1){
+        				else if (enemy_grid[i][j] == 1){
         					square.setFillColor(Color(0x00, 0x80, 0x80));
         				}
-        				else if (my_enemy_grid[i][j] == 2){
+        				else if (enemy_grid[i][j] == 2){
         					square.setFillColor(Color(0xF0, 0xF0, 0xF0));
         				}
-        				else if (my_enemy_grid[i][j] == 3){
+        				else if (enemy_grid[i][j] == 3){
         					square.setFillColor(Color(0xFF, 0x80, 0x00));
         				}
         				else {
