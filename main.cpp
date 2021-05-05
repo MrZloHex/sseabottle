@@ -1,26 +1,34 @@
 #include <SFML/Graphics.hpp>
 
 
+using namespace sf;
+
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+	// making window	
+	RenderWindow window(VideoMode(900, 400), "sseabottle");
+	CircleShape shape(100.f);
+	shape.setFillColor(Color::Green);
 
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
+	// life cycle
+	while (window.isOpen())
+	{
+		// polling events
+        	Event event;
 
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
+        	while (window.pollEvent(event))
+        	{
+			// button *close* was pressed manual closing window
+            		if (event.type == Event::Closed)
+                		window.close();
+        	}
+		
+		// refresh part
+        	window.clear();
+        	window.draw(shape);
+        	window.display();
+    	}
 
-    return 0;
+    	return 0;
 }
 
