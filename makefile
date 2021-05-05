@@ -9,8 +9,6 @@ MAIN_FILE	:= main
 
 all: clean compile execute
 
-run: compile execute
-
 execute:
 	@echo "Executing ..."
 	export LD_LIBRARY_PATH=$(SFML_PATH)/lib && ./$(EXEC_FILE)

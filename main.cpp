@@ -38,7 +38,7 @@ int main()
         		for (int j = 0; j < 10; j++)
         		{
         			RectangleShape square(Vector2f(23.0f, 23.0f));
-					square.setFillColor(Color(0, 255, 255));
+					square.setFillColor(Color(0x00, 0xFF, 0xFF));
 					if (k == 0)
 					{
         				square.setPosition(i*common_offset+enemy_offset, j*common_offset+common_offset);
