@@ -24,4 +24,4 @@ $(MAIN_FILE).o:
 
 clean:
 	@echo "Cleaning ..."
-	rm $(MAIN_FILE).o  $(EXEC_FILE)
+	-rm $(MAIN_FILE).o  $(EXEC_FILE)
