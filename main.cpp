@@ -48,11 +48,25 @@ int main() {
             	if (event.key.code == Mouse::Left) {
               		cout << "x " << x << endl;
               		cout << "y " << y << endl;
+              		cout << endl;
+
+              		if (((x <= 9) && (x >= 0)) && ((y <= 9) && (y >= 0))) {
+              			if (enemy_grid[x][y] == 0) {
+              				my_enemy_grid[x][y] = 1;
+              				//cout << "x " << x << "y " << y << my_enemy_grid[x][y] << endl;
+              			}
+              			else if (enemy_grid[x][y] == 2) {
+              				my_enemy_grid[x][y] = 3;
+              				//cout << "x " << x << " y " << y << " " << my_enemy_grid[x][y] << endl;
+              			}
+              		}
               		//my_grid[x][y]=1;
               	}
 			}
         }
 		
+        //window.clear();
+
         for (int k = 0; k < 2; k++) {
         	for (int i = 0; i < 10; i++) {
         		for (int j = 0; j < 10; j++) {
@@ -62,25 +76,25 @@ int main() {
         			if (k == 0) {
         				// drawing enemy grid go me
 
-        				/* 
+        				/* 									 R     G     B
         				   0 - water						0x00, 0xFF, 0xFF
-        				   1 - water, which was shooted		0x00, 0xF0, 0xF0
+        				   1 - water, which was shooted		0x00, 0x80, 0x80
         				   2 - ship							0xF0, 0xF0, 0xF0
-        				   3 - ship, which was shooted		0xFF, 0xF0, 0x00
+        				   3 - ship, which was shooted		0xFF, 0x80, 0x00
         				   . - nothing or trouble			0x00, 0xFF, 0x00
         				*/
         				// set colour
-        				if (enemy_grid[i][j] == 0) {
+        				if (my_enemy_grid[i][j] == 0) {
         					square.setFillColor(Color(0x00, 0xFF, 0xFF));
         				}
-        				else if (enemy_grid[i][j] == 1){
-        					square.setFillColor(Color(0x00, 0xF0, 0xF0));
+        				else if (my_enemy_grid[i][j] == 1){
+        					square.setFillColor(Color(0x00, 0x80, 0x80));
         				}
-        				else if (enemy_grid[i][j] == 2){
+        				else if (my_enemy_grid[i][j] == 2){
         					square.setFillColor(Color(0xF0, 0xF0, 0xF0));
         				}
-        				else if (enemy_grid[i][j] == 3){
-        					square.setFillColor(Color(0xFF, 0xF0, 0x00));
+        				else if (my_enemy_grid[i][j] == 3){
+        					square.setFillColor(Color(0xFF, 0x80, 0x00));
         				}
         				else {
         					square.setFillColor(Color(0x00, 0xFF, 0x00));
@@ -112,12 +126,14 @@ int main() {
         				// placing them and drawing
         				square.setPosition((i * common_offset) + my_offset, (j * common_offset) + common_offset);
         			}
+        			
         			window.draw(square);
         		}
         	}
         }
 
 		// refresh part
+
 		window.display();
 	}
 
