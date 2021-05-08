@@ -110,7 +110,7 @@ int * drawing_squares(int type, int x, int y, int my_grid[10][10], int enemy_gri
 
 
 void generate_enemy_field(int field[0xA][0xA]) {
-	int amount = 10;
+	/*int amount = 10;
 	for (int x = 0; x < 10; x++) {
 		for (int y = 0; y < 10; y++) {
 			if ((rand()%3) == 2) {
@@ -152,6 +152,84 @@ void generate_enemy_field(int field[0xA][0xA]) {
 			if (amount == 0) {
 				return;
 			}
+		}
+	}*/
+	int enemy_full_grid[0xA][0xA];
+	for (int x = 0; x < 10; x++) {
+		for (int y = 0; y < 10; y++) {
+			enemy_full_grid[x][y] = field[x][y];
+		}
+	}
+
+	for (int length = 4; length > 0; length--) {
+		for (int amount = 5 - length; amount > 0; amount--) {
+			//cout << "wqe" << endl;
+			lets_try:
+				cout << "wqe" << endl;
+				int x_start = rand()%10;
+				int y_start = rand()%10;
+				int direction = rand()%2;		// 0 - horizontal; 1 - vertical
+
+
+				if (direction == 0) {
+					if ((x_start + length) > 10) {
+						goto lets_try;
+					}
+					for (int y_check = y_start - 1; y_check < y_start + 2; y_check++) {
+						for (int x_check = x_start - 1; x_check < x_start + length + 1; x_check++) {
+							if ((x_check < 0) || (x_check > 10) || (y_check < 0) || (y_check > 10)) {
+								continue;
+							}
+							if (enemy_full_grid[x_check][y_check] == 2) {
+								goto lets_try;
+							}
+						}
+					}
+
+					// drawing
+					for (int draw = 0; draw < length; draw++) {
+						field[x_start + draw][y_start] = 2;
+					} 
+					for (int y_draw = y_start - 1; y_draw < y_start + 2; y_draw++) {
+						for (int x_draw = x_start - 1; x_draw < x_start + length + 1; x_draw++) {
+							if ((x_draw < 0) || (x_draw > 10) || (y_draw < 0) || (y_draw > 10)) {
+								continue;
+							}
+							enemy_full_grid[x_draw][y_draw] = 2;
+						}
+					}
+				}
+
+
+				else if (direction == 1) {
+					if ((y_start + length) > 10) {
+						goto lets_try;
+					}
+					for (int x_check = x_start - 1; x_check < x_start + 2; x_check++) {
+						for (int y_check = y_start - 1; y_check < y_start + length + 1; y_check++) {
+							if ((x_check < 0) || (x_check > 10) || (y_check < 0) || (y_check > 10)) {
+								continue;
+							}
+							if (enemy_full_grid[x_check][y_check] == 2) {
+								goto lets_try;
+							}
+						}
+					}
+
+					// drawing
+					for (int draw = 0; draw < length; draw++) {
+						field[x_start][y_start + draw] = 2;
+					} 
+					for (int x_draw = x_start - 1; x_draw < x_start + 2; x_draw++) {
+						for (int y_draw = y_start - 1; y_draw < y_start + length + 1; y_draw++) {
+							if ((x_draw < 0) || (x_draw > 10) || (y_draw < 0) || (y_draw > 10)) {
+								continue;
+							}
+							enemy_full_grid[x_draw][y_draw] = 2;
+						}
+					}
+
+				}
 		}
 	}
 }
