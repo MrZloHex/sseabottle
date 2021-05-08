@@ -163,9 +163,13 @@ void generate_enemy_field(int field[0xA][0xA]) {
 
 	for (int length = 4; length > 0; length--) {
 		for (int amount = 5 - length; amount > 0; amount--) {
-			//cout << "wqe" << endl;
+			if (length == 1) {
+				continue;
+			}
+			cout << length << endl;
+
 			lets_try:
-				cout << "wqe" << endl;
+				//cout << "wqe" << endl;
 				int x_start = rand()%10;
 				int y_start = rand()%10;
 				int direction = rand()%2;		// 0 - horizontal; 1 - vertical
